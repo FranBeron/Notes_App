@@ -1,5 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 body{
     height: 100vh;
     background-color: #fff;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#matMenudiv{
+    box-shadow: none!important;
+    background-color: transparent!important;
+}
+.mat-mdc-menu-panel{
+    box-shadow: none!important;
+    background-color: transparent!important;
+    width: 50px;
+}
+.mat-menu-panel {
+    max-width: 35px;
 }
