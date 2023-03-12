@@ -9,18 +9,24 @@ export class NotesComponent {
   @Input() notes: any[] = [];
   @Output() deleteNote = new EventEmitter<number>();
   searchText: string = '';
-  filteredNotes: any[] = []; // variable para almacenar las notas filtradas
-  loading = false; // variable para indicar si se está cargando o no
-
+  filteredNotes: any[] = [];
+  loading = false;
+  showSkeleton: boolean = false;
   constructor() {}
 
   filterNotes() {
     this.loading = true;
-    this.filteredNotes = this.notes.filter((note) =>
-      note.content.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-    this.loading = false;
+    this.showSkeleton = true;
+  
+    setTimeout(() => {
+      this.filteredNotes = this.notes.filter((note) =>
+        note.content.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+      this.loading = false;
+      this.showSkeleton = false;
+    }, 2000);
   }
+  
 
   onDeleteNote(index: number) {
     this.deleteNote.emit(index);

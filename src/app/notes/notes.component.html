@@ -8,12 +8,12 @@
     <h1>Notes</h1>
   </div>
 
-  <div class="note-container-skeleton">
+  <div class="note-container-skeleton" *ngIf="showSkeleton">
     <div class="note-skeleton"></div>
   </div>
   
 
-  <div class="note-container">
+  <div *ngIf="!showSkeleton" class="note-container">
 
     <div class="note" *ngFor="let note of notes | filter: searchText" [style.backgroundColor]="note.backgroundColor"
       [ngClass]="{ 'new-note': note.new }">
