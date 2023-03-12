@@ -1,3 +1,9 @@
-<div class="col-md-2 sidebar">
-  <app-sidebar></app-sidebar>
+<div class="content">
+  <div class="col-md-2 sidebar">
+    <app-sidebar (colorSelected)="onColorSelected($event)"></app-sidebar>
+  </div>
+
+  <div class="col-md-10">
+    <app-notes [notes]="notes" (deleteNote)="onDeleteNote($event)"></app-notes>
+  </div>
 </div>
