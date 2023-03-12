@@ -1,0 +1,134 @@
+.section {
+    padding-left: 80px;
+}
+
+.search {
+    padding-top: 40px;
+}
+
+.title {
+    padding-top: 80px;
+    padding-bottom: 60px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.note-container-skeleton {
+    width: 300px;
+    height: 300px;
+    border-radius: 25px;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to right, #fdc973 0%, #a082d5 25%, #16e4ff 50%, #e4f692 75%, #fdc973 100%);
+    background-size: 400% 100%;
+    position: relative;
+    overflow: hidden;
+    animation: gradient-animation 2s ease-in-out infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+
+.note-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.note {
+    width: 300px;
+    height: 300px;
+    background-color: yellow;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    position: relative;
+}
+
+.note textarea {
+    width: 100%;
+    height: calc(100% - 40px);
+    padding: 10px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 20px;
+    border: none;
+    resize: none;
+}
+
+textarea:focus {
+    outline: none;
+    border: none;
+}
+
+.date {
+    position: absolute;
+    bottom: 20px;
+    left: 35px;
+    font-size: 12px;
+
+}
+
+.btn-delete {
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    margin-right: 10px;
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    color: red;
+}
+
+.note.new-note {
+    animation: newNoteAnimation 1s;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 18px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.search button {
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+
+
+@keyframes newNoteAnimation {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
