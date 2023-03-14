@@ -15,18 +15,10 @@ export class NotesComponent {
   constructor() {}
 
   filterNotes() {
-    this.loading = true;
-    this.showSkeleton = true;
-  
-    setTimeout(() => {
-      this.filteredNotes = this.notes.filter((note) =>
-        note.content.toLowerCase().includes(this.searchText.toLowerCase())
-      );
-      this.loading = false;
-      this.showSkeleton = false;
-    }, 2000);
+    this.filteredNotes = this.notes.filter((note) =>
+      note.content.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
-  
 
   onDeleteNote(index: number) {
     this.deleteNote.emit(index);
