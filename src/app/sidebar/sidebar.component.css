@@ -45,3 +45,11 @@ button {
 .yellow-lemon {
     background-color: #e4f692;
 }
+
+.rotate-button {
+    transition: transform 0.3s ease;
+}
+
+.rotate-button.rotate {
+    transform: rotate(90deg);
+}
