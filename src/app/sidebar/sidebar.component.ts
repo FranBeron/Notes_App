@@ -9,12 +9,21 @@ export class SidebarComponent {
   @Output() colorSelected = new EventEmitter<string>();
 
   isRotated = false;
+  isMenuOpen = false;
 
   onRotateButtonClick() {
-    this.isRotated = true;
+    this.isRotated = !this.isRotated;
+  }
+
+  onMenuClosed() {
+    this.isMenuOpen = false;
+    if (this.isRotated) {
+      this.isRotated = false;
+    }
   }
   
   onColorSelected(color: string) {
     this.colorSelected.emit(color);
   }
+  
 }

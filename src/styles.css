@@ -1,22 +1,42 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
 
-body{
+body {
     height: 100vh;
     background-color: #fff;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-#matMenudiv{
-    box-shadow: none!important;
-    background-color: transparent!important;
+html,
+body {
+    height: 100%;
 }
-.mat-mdc-menu-panel{
-    box-shadow: none!important;
-    background-color: transparent!important;
-    width: 50px;
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.mat-menu-panel {
-    max-width: 35px;
+
+.cdk-overlay-connected-position-bounding-box,
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+    max-width: 80px !important;
+    width: auto;
+    min-width: auto !important;
+}
+
+.mat-mdc-menu-panel {
+    box-shadow: none !important;
+    background-color: transparent !important;
+    max-width: 10px;
+}
+
+.mat-mdc-menu-item.mdc-list-item {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+
+.mat-ripple.mat-mdc-menu-ripple {
+    display: none;
 }

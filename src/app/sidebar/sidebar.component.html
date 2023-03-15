@@ -3,14 +3,17 @@
 </div>
 
 <div class="sidebar">
-  <button class="rotate-button" [ngClass]="{'rotate': isRotated}"  (click)="onRotateButtonClick()" mat-button [matMenuTriggerFor]="menu">
+  <button class="rotate-button" [ngClass]="{'rotate': isRotated}" (click)="onRotateButtonClick()" mat-button [matMenuTriggerFor]="menu">
     <img src="../../assets/images/add.png" alt="">
   </button>
-  <mat-menu #menu="matMenu" class="matMenu">
-    <button mat-menu-item (click)="onColorSelected('#fdc973')"><div class="color yellow"></div></button>
-    <button mat-menu-item (click)="onColorSelected('#fdc973')"><div class="color orange"></div></button>
-    <button mat-menu-item (click)="onColorSelected('#a082d5')"><div class="color violet"></div></button>
-    <button mat-menu-item (click)="onColorSelected('#16e4ff')"><div class="color sky-blue"></div></button>
-    <button mat-menu-item (click)="onColorSelected('#e4f692')"><div class="color yellow-lemon"></div></button>
+  
+  <mat-menu #menu="matMenu" class="custom-menu" (closed)="onMenuClosed()" >
+    <button mat-menu-item class="menu-item"  (click)="onColorSelected('#fdc973')"><div class="color yellow"></div></button>
+    <button mat-menu-item class="menu-item"  (click)="onColorSelected('#fdc973')"><div class="color orange"></div></button>
+    <button mat-menu-item class="menu-item"  (click)="onColorSelected('#a082d5')"><div class="color violet"></div></button>
+    <button mat-menu-item class="menu-item"  (click)="onColorSelected('#16e4ff')"><div class="color sky-blue"></div></button>
+    <button mat-menu-item class="menu-item"  (click)="onColorSelected('#e4f692')"><div class="color yellow-lemon"></div></button>
   </mat-menu>
+  
+  
 </div>

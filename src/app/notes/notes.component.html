@@ -1,7 +1,7 @@
 <div class="section">
-  <div class="search">
-    <input type="search" name="" id="" placeholder="Search" [(ngModel)]="searchText">
+  <div class="search-bar">
     <button type="submit"><i class="bi bi-search"></i></button>
+    <input type="search" name="" id="" placeholder="Search" [(ngModel)]="searchText">
   </div>
 
   <div class="title">
@@ -11,16 +11,22 @@
   <div class="note-container-skeleton" *ngIf="showSkeleton">
     <div class="note-skeleton"></div>
   </div>
-  
+
+  <button class="btn btn-secondary animate__animated animate__pulse" (click)="exportPDF()">
+    <i class="bi bi-share"></i>
+  </button>
 
   <div *ngIf="!showSkeleton" class="note-container">
 
     <div class="note" *ngFor="let note of notes | filter: searchText" [style.backgroundColor]="note.backgroundColor"
       [ngClass]="{ 'new-note': note.new }">
-      <textarea [style.backgroundColor]="note.backgroundColor" [(ngModel)]="note.content"
-        placeholder="Tomar una nota..."></textarea>
+      <textarea id="notes" [style.backgroundColor]="note.backgroundColor" [(ngModel)]="note.content"
+        placeholder="Take a note..."></textarea>
       <span class="date">{{ note.createdAt | date: 'MMM d, y' }}</span>
       <button class="btn-delete" (click)="onDeleteNote(notes.indexOf(note))"><i class="bi bi-trash3"></i></button>
+
     </div>
+
   </div>
+
 </div>
