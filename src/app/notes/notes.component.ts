@@ -1,8 +1,6 @@
 import { Note } from './../models/note';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import jsPDF from 'jspdf';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import * as MarkdownIt from 'markdown-it';
 
 @Component({
   selector: 'app-notes',
@@ -18,14 +16,50 @@ export class NotesComponent {
   searching = false;
   showSkeleton = false;
   searchTimer: any;
-
-
+  editingNoteIndex: number | null = null;
+  markdown = new MarkdownIt();
+  selectedNoteIndex: number = -1;
+  editing: boolean = false;
+  selectedNoteId: number | null = null;
 
   constructor() {
     this.searchTimer = null;
   }
 
-  
+  ngOnInit() {
+    this.sortNotes();
+  }
+
+  toggleFavorite(note: Note) {
+    note.favorite = !note.favorite;
+    if (note.favorite) {
+      const index = this.notes.indexOf(note);
+      this.notes.splice(index, 1);
+      this.notes.unshift(note);
+    } else {
+      this.sortNotes();
+    }
+  }
+
+  sortNotes() {
+    this.notes.sort((a, b) => {
+      if (a.favorite && !b.favorite) {
+        return -1;
+      } else if (!a.favorite && b.favorite) {
+        return 1;
+      } else {
+        return b.createdAt.getTime() - a.createdAt.getTime();
+      }
+    });
+  }
+
+  startEditing(noteId: number) {
+    this.selectedNoteId = noteId;
+  }
+
+  stopEditing(noteId: number) {
+    this.selectedNoteId = null;
+  }
 
   filterNotes() {
     this.filteredNotes = this.notes.filter((note) =>
@@ -48,8 +82,9 @@ export class NotesComponent {
 
   shareNote(note: Note) {
     const text = note.content;
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    const fileName = `note.txt`;
+    const title = note.title;
+    const blob = new Blob([title, text], { type: 'text/plain;charset=utf-8' });
+    const fileName = `note_${note.title}.txt`;;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.download = fileName;

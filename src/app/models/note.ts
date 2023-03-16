@@ -1,21 +1,26 @@
 export class Note {
-  backgroundColor: string;
+  title: string;
   content: string;
+  backgroundColor: string;
   createdAt: Date;
   new: boolean;
-  title: string;
-
+  id: number;
+  favorite: boolean; 
+  
   constructor(
     title: string,
     content: string,
     backgroundColor: string,
     createdAt: Date = new Date(),
-    isNew: boolean = true
+    noteIsNew: boolean = true,
+    favorite: boolean = false // valor por defecto es false
   ) {
     this.title = title;
-    this.backgroundColor = backgroundColor;
     this.content = content;
+    this.backgroundColor = backgroundColor;
     this.createdAt = createdAt;
-    this.new = isNew;
+    this.new = noteIsNew;
+    this.id = 0;
+    this.favorite = favorite; // asignar el valor de la propiedad favorite
   }
 }

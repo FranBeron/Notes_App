@@ -76,19 +76,24 @@ input {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 25px;
     position: relative;
+    word-break: break-word;
 }
 
-.note textarea {
+.note textarea,
+.note-content {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 80px);
     padding: 10px;
     font-family: 'Tajawal', sans-serif;
     font-size: 20px;
     border: none;
     resize: none;
+    background-color: transparent;
+    overflow-y: auto;
 }
 
-textarea:focus {
+textarea:focus,
+.note-content:focus {
     outline: none;
     border: none;
 }
@@ -145,23 +150,19 @@ textarea:focus {
 
 
 /* scroll started */
-textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar,
+.note-content::-webkit-scrollbar {
     width: 3px;
 }
 
 /* Handle */
-textarea::-webkit-scrollbar-thumb {
+textarea::-webkit-scrollbar-thumb,
+.note-content::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: rgba(17, 17, 17, 0.377);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
-
-
-
-
-/**/
-/*/*/
 
 .editor {
     border: 2px solid rgba(0, 0, 0, 0.2);
@@ -202,13 +203,26 @@ pre {
     cursor: pointer;
 }
 
-.btn-share:hover{
+.btn-favorite {
+    background: transparent;
+    position: absolute;
+    bottom: 9px;
+    right: 0;
+    margin-right: 70px;
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-share:hover {
     color: red;
 }
 
 input.note-title {
     border: none;
-    border-bottom: 1px solid #333;;
+    border-bottom: 1px solid #333;
+    ;
     background-color: transparent;
     font-family: 'Tajawal', sans-serif;
     font-size: 24px;
@@ -216,5 +230,4 @@ input.note-title {
     padding: 10px 0;
     outline: none;
     width: 100%;
-  }
-  
+}

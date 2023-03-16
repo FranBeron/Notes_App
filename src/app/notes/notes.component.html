@@ -18,16 +18,25 @@
   <div *ngIf="!showSkeleton" class="note-container">
 
     <div class="note" *ngFor="let note of notes | filter: searchText" [style.backgroundColor]="note.backgroundColor"
-      [ngClass]="{ 'new-note': note.new }">
-      <input class="note-title" type="text" [(ngModel)]="note.title" placeholder="Title">
-      <textarea id="notes" [style.backgroundColor]="note.backgroundColor" [(ngModel)]="note.content"
-        placeholder="Take a note..."></textarea>
-      <span class="date">{{ note.createdAt | date: 'MMM d, y' }}</span>
-      <button class="btn-delete" (click)="onDeleteNote(notes.indexOf(note))"><i class="bi bi-trash3"></i></button>
-      <button class="btn-share" (click)="shareNote(note)">
-        <i class="bi bi-share"></i>
-      </button>
+    [ngClass]="{ 'new-note': note.new }">
+    <input class="note-title" type="text" [(ngModel)]="note.title" placeholder="Title">
+    <div *ngIf="selectedNoteId !== note.id" (click)="startEditing(note.id)" class="note-content">
+      <div [innerHTML]="markdown.render(note.content)"></div>
     </div>
+    <textarea *ngIf="selectedNoteId === note.id" [(ngModel)]="note.content" (blur)="stopEditing(note.id)"></textarea>
+  
+    <span class="date">{{ note.createdAt | date: 'MMM d, y' }}</span>
+    <button class="btn-delete" (click)="onDeleteNote(notes.indexOf(note))"><i class="bi bi-trash3"></i></button>
+    <button class="btn-share" (click)="shareNote(note)">
+      <i class="bi bi-share"></i>
+    </button>
+    <button class="btn-favorite" (click)="toggleFavorite(note)">
+      <i *ngIf="!note.favorite" class="bi bi-star"></i>
+      <i *ngIf="note.favorite" class="bi bi-star-fill"></i>
+    </button>
+  </div>
+  
+
 
   </div>
 

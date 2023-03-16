@@ -9,6 +9,7 @@ import { Note } from '../models/note';
 export class MainComponent {
   notes: Note[] = [];
   currentColor: string = '';
+  favoriteNotes: Note[] = [];
 
   constructor() {}
 
@@ -28,10 +29,23 @@ export class MainComponent {
 
   loadNotes() {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    this.notes = notes.map((note: Note) => {
-      return new Note(note.title, note.content, note.backgroundColor, new Date(), false);
+    this.favoriteNotes = notes.filter((note: Note) => note.favorite);
+    this.notes = notes.filter((note: Note) => !note.favorite);
+    this.notes = this.favoriteNotes.concat(this.notes);
+    this.notes = this.notes.map((note: Note) => {
+      const loadedNote = new Note(
+        note.title,
+        note.content,
+        note.backgroundColor,
+        new Date(note.createdAt),
+        note.new,
+        note.favorite
+      );
+      loadedNote.id = note.id;
+      return loadedNote;
     });
   }
+  
 
   onColorSelected(color: string) {
     this.currentColor = color;
@@ -40,13 +54,22 @@ export class MainComponent {
 
   createNote() {
     const note = new Note('', '', this.currentColor);
+    note.id = this.generateNoteId(); // Asignamos un nuevo valor a la propiedad `id`
     this.notes.push(note);
     this.currentColor = note.backgroundColor;
     setTimeout(() => {
       note.new = false;
     }, 1000);
   }
-  
+
+  generateNoteId(): number {
+    let id = 1;
+    if (this.notes.length > 0) {
+      id = Math.max(...this.notes.map((note) => note.id)) + 1;
+    }
+    return id;
+  }
+
   onDeleteNote(index: number) {
     this.notes.splice(index, 1);
     this.saveNotes();
