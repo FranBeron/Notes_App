@@ -34,6 +34,7 @@ input {
 }
 
 .note-container-skeleton {
+    margin: 10px 0 0 10px;
     width: 300px;
     height: 300px;
     border-radius: 25px;
@@ -187,4 +188,20 @@ textarea::-webkit-scrollbar-thumb {
 
 pre {
     white-space: pre !important;
+}
+
+.btn-share {
+    background: transparent;
+    position: absolute;
+    bottom: 9px;
+    right: 0;
+    margin-right: 40px;
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-share:hover{
+    color: red;
 }

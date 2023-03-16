@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import jsPDF from 'jspdf';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes',
@@ -12,9 +14,15 @@ export class NotesComponent {
   searchText: string = '';
   filteredNotes: any[] = [];
   loading = false;
-  showSkeleton: boolean = false;
-  
-  constructor() {}
+  searching = false;
+  showSkeleton = false;
+  searchTimer: any;
+
+
+
+  constructor() {
+    this.searchTimer = null;
+  }
 
   filterNotes() {
     this.filteredNotes = this.notes.filter((note) =>
@@ -22,43 +30,27 @@ export class NotesComponent {
     );
   }
 
+  onSearchInput() {
+    this.showSkeleton = true; // mostrar el skeleton loader
+    clearTimeout(this.searchTimer); // reiniciar el temporizador
+    this.searchTimer = setTimeout(() => {
+      this.filterNotes(); // ejecutar la función filterNotes después de medio segundo
+      this.showSkeleton = false; // ocultar el skeleton loader
+    }, 500);
+  }
+
   onDeleteNote(index: number) {
     this.deleteNote.emit(index);
   }
 
-  exportPDF() {
-    const doc = new jsPDF();
-    const notes = this.notes.filter((note) => !note.new);
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const noteWidth = 100;
-    const noteHeight = 100; // Altura inicial de la nota
-    let y = 20; // Posición vertical actual
-  
-    notes.forEach((note, index) => {
-      const createdAt = note.createdAt.toLocaleDateString();
-      const lines = doc.splitTextToSize(note.content, noteWidth - 10);
-      const contentHeight = doc.getTextDimensions(note.content).h;
-      const height = Math.max(contentHeight + 30, noteHeight);
-  
-      // Si la nota actual no cabe en la página actual, agregue un salto de página
-      if (y + height + 20 > pageHeight) {
-        doc.addPage();
-        y = 20;
-      }
-  
-      doc
-        .setFillColor(note.backgroundColor)
-        .rect(50, y, noteWidth, height, 'F')
-        .setFontSize(8)
-        .text(createdAt, 60, y + 10)
-        .setFontSize(12)
-        .text(lines, 60, y + 25);
-  
-      y += height + 20; // Agregar margen inferior para la siguiente nota
-    });
-  
-    doc.save('notes.pdf');
+  shareNote(note: any) {
+    const text = note.content;
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const fileName = `note.txt`;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = url;
+    link.click();
   }
-  
-  
 }
