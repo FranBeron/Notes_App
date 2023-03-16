@@ -205,3 +205,16 @@ pre {
 .btn-share:hover{
     color: red;
 }
+
+input.note-title {
+    border: none;
+    border-bottom: 1px solid #333;;
+    background-color: transparent;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0;
+    outline: none;
+    width: 100%;
+  }
+  

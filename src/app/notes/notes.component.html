@@ -19,6 +19,7 @@
 
     <div class="note" *ngFor="let note of notes | filter: searchText" [style.backgroundColor]="note.backgroundColor"
       [ngClass]="{ 'new-note': note.new }">
+      <input class="note-title" type="text" [(ngModel)]="note.title" placeholder="Title">
       <textarea id="notes" [style.backgroundColor]="note.backgroundColor" [(ngModel)]="note.content"
         placeholder="Take a note..."></textarea>
       <span class="date">{{ note.createdAt | date: 'MMM d, y' }}</span>

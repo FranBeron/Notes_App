@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Note } from '../models/note';
 
 @Component({
   selector: 'app-main',
@@ -6,7 +7,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent {
-  notes: any[] = [];
+  notes: Note[] = [];
   currentColor: string = '';
 
   constructor() {}
@@ -27,8 +28,8 @@ export class MainComponent {
 
   loadNotes() {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    this.notes = notes.map((note: any) => {
-      return { ...note, createdAt: new Date() };
+    this.notes = notes.map((note: Note) => {
+      return new Note(note.title, note.content, note.backgroundColor, new Date(), false);
     });
   }
 
@@ -38,19 +39,14 @@ export class MainComponent {
   }
 
   createNote() {
-    const note = {
-      backgroundColor: this.currentColor,
-      content: '',
-      createdAt: new Date(),
-      new: true,
-    };
+    const note = new Note('', '', this.currentColor);
     this.notes.push(note);
     this.currentColor = note.backgroundColor;
     setTimeout(() => {
       note.new = false;
     }, 1000);
   }
-
+  
   onDeleteNote(index: number) {
     this.notes.splice(index, 1);
     this.saveNotes();

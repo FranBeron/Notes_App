@@ -1,3 +1,4 @@
+import { Note } from './../models/note';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import jsPDF from 'jspdf';
 import { Subject } from 'rxjs';
@@ -9,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./notes.component.css'],
 })
 export class NotesComponent {
-  @Input() notes: any[] = [];
+  @Input() notes: Note[] = [];
   @Output() deleteNote = new EventEmitter<number>();
   searchText: string = '';
   filteredNotes: any[] = [];
@@ -23,6 +24,8 @@ export class NotesComponent {
   constructor() {
     this.searchTimer = null;
   }
+
+  
 
   filterNotes() {
     this.filteredNotes = this.notes.filter((note) =>
@@ -43,7 +46,7 @@ export class NotesComponent {
     this.deleteNote.emit(index);
   }
 
-  shareNote(note: any) {
+  shareNote(note: Note) {
     const text = note.content;
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const fileName = `note.txt`;
