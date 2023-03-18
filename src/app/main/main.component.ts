@@ -1,5 +1,8 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { getAuth } from 'firebase/auth';
 import { Note } from '../models/note';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main',
@@ -10,8 +13,17 @@ export class MainComponent {
   notes: Note[] = [];
   currentColor: string = '';
   favoriteNotes: Note[] = [];
+  showMenu: boolean = false;
+  userPic: any;
 
-  constructor() {}
+  constructor(private userService: UserService, private router: Router) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user !== null) {
+      this.userPic = user.photoURL;
+    }
+  }
 
   ngOnInit() {
     this.loadNotes();
@@ -27,6 +39,10 @@ export class MainComponent {
     localStorage.setItem('notes', JSON.stringify(notes));
   }
 
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+
   loadNotes() {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
     this.favoriteNotes = notes.filter((note: Note) => note.favorite);
@@ -39,17 +55,26 @@ export class MainComponent {
         note.backgroundColor,
         new Date(note.createdAt),
         note.new,
-        note.favorite
+        note.favorite,
+        note.id
       );
       loadedNote.id = note.id;
       return loadedNote;
     });
   }
-  
 
   onColorSelected(color: string) {
     this.currentColor = color;
     this.createNote();
+  }
+
+  logOut() {
+    this.userService
+      .logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch((error) => console.log(error));
   }
 
   createNote() {

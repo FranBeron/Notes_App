@@ -13,14 +13,15 @@ export class Note {
     backgroundColor: string,
     createdAt: Date = new Date(),
     noteIsNew: boolean = true,
-    favorite: boolean = false // valor por defecto es false
+    favorite: boolean = false,
+    id: number =0,
   ) {
     this.title = title;
     this.content = content;
     this.backgroundColor = backgroundColor;
     this.createdAt = createdAt;
     this.new = noteIsNew;
-    this.id = 0;
+    this.id = id;
     this.favorite = favorite; // asignar el valor de la propiedad favorite
   }
 }

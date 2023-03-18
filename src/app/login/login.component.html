@@ -1,0 +1,24 @@
+<div class="login-form">
+  <h1>NoteLy</h1>
+  <div class="message">{{message}}</div>
+
+  <!-- <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="email" placeholder="Email" />
+    <input type="password" formControlName="password" placeholder="Password" />
+    <input *ngIf="!isLoading" type="submit" value="Login" />
+    <div *ngIf="isLoading" class="spinner"></div>
+
+  </form>
+
+  <a routerLink="/register">Sign up</a> -->
+
+  <div>
+    <div *ngIf="isLoading" class="spinner"></div>
+
+    <button *ngIf="!isLoading" type="button" class="btn btn-outline-warning" (click)="signInWithGoogle()">Log in with
+      Google</button>
+  </div>
+
+  <div class="loading-spinner">
+  </div>
+</div>
