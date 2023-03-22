@@ -1,3 +1,4 @@
+import { Note } from './../models/note';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserService } from './user.service';
@@ -8,14 +9,17 @@ import { UserService } from './user.service';
 export class NoteService {
   constructor(private firestore: AngularFirestore, private userService: UserService) {}
 
-  addNote = (note: any) => {
+  addNote = (note: Note) => {
+    const dataNote = note.toJSON();
+    const noteId = this.firestore.createId();
+    dataNote.id = noteId;
     const userId = this.userService.getUserId();
-    return this.firestore.collection(`users/${userId}/notes`).add(note);
+    return this.firestore.collection(`users/${userId}/notes`).add(dataNote);
   };
 
   getNotes = () => {
     const userId = this.userService.getUserId();
-    return this.firestore.collection(`users/${userId}/notes`).snapshotChanges();
+    return this.firestore.collection<Note>(`users/${userId}/notes`).valueChanges();
   };
 
   updateNote = (note: any) => {

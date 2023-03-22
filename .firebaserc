@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fb-firebase-auth": {
+      "hosting": {
+        "Notes_App_": [
+          "fb-firebase-auth"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fb-firebase-auth"
+  }
+}

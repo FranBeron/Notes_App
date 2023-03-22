@@ -1,6 +1,7 @@
 import { Note } from './../models/note';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import * as MarkdownIt from 'markdown-it';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-notes',
@@ -9,7 +10,7 @@ import * as MarkdownIt from 'markdown-it';
 })
 export class NotesComponent {
   @Input() notes: Note[] = [];
-  @Output() deleteNote = new EventEmitter<number>();
+  @Output() deleteNote = new EventEmitter<Note>();
   searchText: string = '';
   filteredNotes: any[] = [];
   loading = false;
@@ -22,7 +23,7 @@ export class NotesComponent {
   editing: boolean = false;
   selectedNoteId: number | null = null;
 
-  constructor() {
+  constructor(private noteService: NoteService) {
     this.searchTimer = null;
   }
 
@@ -76,15 +77,24 @@ export class NotesComponent {
     }, 500);
   }
 
-  onDeleteNote(index: number) {
-    this.deleteNote.emit(index);
+  onDeleteNote(note: Note) {
+    this.noteService
+      .deleteNote(note)
+      .then(() => {
+        const index = this.notes.indexOf(note);
+        this.notes.splice(index, 1);
+        this.sortNotes();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
-
+  
   shareNote(note: Note) {
     const text = note.content;
     const title = note.title;
     const blob = new Blob([title, text], { type: 'text/plain;charset=utf-8' });
-    const fileName = `note_${note.title}.txt`;;
+    const fileName = `note_${note.title}.txt`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.download = fileName;

@@ -26,7 +26,7 @@
     <textarea *ngIf="selectedNoteId === note.id" [(ngModel)]="note.content" (blur)="stopEditing(note.id)"></textarea>
   
     <span class="date">{{ note.createdAt | date: 'MMM d, y' }}</span>
-    <button class="btn-delete" (click)="onDeleteNote(notes.indexOf(note))"><i class="bi bi-trash3"></i></button>
+    <button class="btn-delete" (click)="onDeleteNote(note)"><i class="bi bi-trash3"></i></button>
     <button class="btn-share" (click)="shareNote(note)">
       <i class="bi bi-share"></i>
     </button>
