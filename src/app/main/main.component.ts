@@ -69,7 +69,7 @@ export class MainComponent {
       '',
       this.currentColor,
       new Date(),
-      true,
+      false,
       false
     );
     this.noteService.addNote(note).then(() => {
@@ -84,7 +84,7 @@ export class MainComponent {
   }
 
   onDeleteNote(note: Note) {
-    this.noteService.deleteNote(note.id)
+    this.noteService.deleteNote(note)
     .then(() => {
       this.notes = this.notes.filter(n => n.id !== note.id);
     })
