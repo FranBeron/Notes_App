@@ -226,8 +226,12 @@ input.note-title {
     background-color: transparent;
     font-family: 'Tajawal', sans-serif;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 200;
     padding: 10px 0;
     outline: none;
     width: 100%;
+}
+
+.msg_span{
+    font-family: 'Outfit', sans-serif;
 }

@@ -15,8 +15,12 @@
   </div>
 
 
+
   <div *ngIf="!showSkeleton" class="note-container">
 
+    <div class="msg_span" *ngIf="!notes.length"> 
+      <span>Here will be your notes...</span>
+    </div>
     <div class="note" *ngFor="let note of notes | filter: searchText" [style.backgroundColor]="note.backgroundColor"
     [ngClass]="{ 'new-note': note.new }">
     <input class="note-title" type="text" [(ngModel)]="note.title" placeholder="Title">
